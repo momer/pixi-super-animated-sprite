@@ -54,3 +54,4 @@ dist/docs/pixi.api.json
 # A folder that will be uploaded with every release
 # This is useful for things like docs and bundled versions of the library
 .s3_uploads
+*.tgz

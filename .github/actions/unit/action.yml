@@ -1,0 +1,15 @@
+name: "Test Project"
+description: "Runs unit tests"
+inputs:
+  type:
+    description: "Type of tests to run"
+    required: true
+    default: Both
+runs:
+  using: "composite"
+  steps:
+    - name: Unit Tests
+      shell: bash
+      run: xvfb-run --auto-servernum npm run test:unit -- --maxWorkers=50%
+      env:
+        NODE_ENV: production

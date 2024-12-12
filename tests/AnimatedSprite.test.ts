@@ -1,5 +1,5 @@
 import { Texture, Ticker } from 'pixi.js';
-import { SuperAnimatedSprite } from '../src/SuperAnimatedSprite';
+import { AnimatedSprite } from '../src/AnimatedSprite';
 
 
 const ticker1 = { deltaTime: 1 } as Ticker;
@@ -7,12 +7,12 @@ const ticker3 = { deltaTime: 3 } as Ticker;
 const ticker4 = { deltaTime: 4 } as Ticker;
 const ticker5 = { deltaTime: 5 } as Ticker;
 
-describe('SuperAnimatedSprite', () =>
+describe('AnimatedSprite', () =>
 {
     describe('instance', () =>
     {
         let textures: Texture[];
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeEach(() =>
         {
@@ -34,13 +34,13 @@ describe('SuperAnimatedSprite', () =>
 
         it('should be correct with default options', () =>
         {
-            sprite = new SuperAnimatedSprite(textures);
+            sprite = new AnimatedSprite(textures);
             expect(sprite['_autoUpdate']).toBe(true);
         });
 
         it('should support other sprite options', () =>
         {
-            sprite = new SuperAnimatedSprite({ textures, x: 10, y: 20, alpha: 0.5 });
+            sprite = new AnimatedSprite({ textures, x: 10, y: 20, alpha: 0.5 });
             expect(sprite.x).toBe(10);
             expect(sprite.y).toBe(20);
             expect(sprite.alpha).toBe(0.5);
@@ -48,13 +48,13 @@ describe('SuperAnimatedSprite', () =>
 
         it('should be correct with autoUpdate=false', () =>
         {
-            sprite = new SuperAnimatedSprite(textures, false);
+            sprite = new AnimatedSprite(textures, false);
             expect(sprite['_autoUpdate']).toBe(false);
         });
 
         it('should be correct with autoUpdate=true but then turned off via setter', () =>
         {
-            sprite = new SuperAnimatedSprite(textures, true);
+            sprite = new AnimatedSprite(textures, true);
             expect(sprite['_autoUpdate']).toBe(true);
             sprite.autoUpdate = false;
             expect(sprite['_autoUpdate']).toBe(false);
@@ -63,11 +63,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.stop()', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeAll(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY], false);
+            sprite = new AnimatedSprite([Texture.EMPTY], false);
         });
 
         afterAll(() =>
@@ -103,11 +103,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.play()', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeAll(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY], false);
+            sprite = new AnimatedSprite([Texture.EMPTY], false);
         });
 
         afterAll(() =>
@@ -143,11 +143,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.onComplete()', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeAll(() =>
         {
-            sprite = new SuperAnimatedSprite([new Texture(), new Texture(), Texture.EMPTY]);
+            sprite = new AnimatedSprite([new Texture(), new Texture(), Texture.EMPTY]);
             sprite.animationSpeed = 0.5;
             sprite.loop = false;
         });
@@ -264,11 +264,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.gotoAndPlay()', () =>
     {
-        let sprite!: SuperAnimatedSprite;
+        let sprite!: AnimatedSprite;
 
         beforeEach(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY, Texture.EMPTY, Texture.EMPTY]);
+            sprite = new AnimatedSprite([Texture.EMPTY, Texture.EMPTY, Texture.EMPTY]);
             sprite.animationSpeed = 0.5;
             sprite.autoUpdate = false;
             sprite.loop = false;
@@ -321,11 +321,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.gotoAndStop()', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeAll(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY, Texture.EMPTY, Texture.EMPTY]);
+            sprite = new AnimatedSprite([Texture.EMPTY, Texture.EMPTY, Texture.EMPTY]);
             sprite.animationSpeed = 0.5;
             sprite.loop = false;
         });
@@ -394,11 +394,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.onFrameChange()', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeEach(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY, Texture.WHITE, Texture.EMPTY]);
+            sprite = new AnimatedSprite([Texture.EMPTY, Texture.WHITE, Texture.EMPTY]);
             sprite.animationSpeed = 0.5;
             sprite.loop = false;
         });
@@ -535,7 +535,7 @@ describe('SuperAnimatedSprite', () =>
                 const orig1 = new Texture();
                 const orig2 = new Texture();
                 const orig3 = new Texture();
-                const sprite = new SuperAnimatedSprite([orig1, orig2, orig3]);
+                const sprite = new AnimatedSprite([orig1, orig2, orig3]);
 
                 sprite.gotoAndPlay(0);
                 sprite.loop = false;
@@ -560,11 +560,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.currentFrame', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeAll(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY, Texture.EMPTY, Texture.EMPTY]);
+            sprite = new AnimatedSprite([Texture.EMPTY, Texture.EMPTY, Texture.EMPTY]);
             sprite.animationSpeed = 0.5;
             sprite.loop = false;
         });
@@ -637,11 +637,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.onLoop()', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeEach(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY, Texture.WHITE, Texture.EMPTY]);
+            sprite = new AnimatedSprite([Texture.EMPTY, Texture.WHITE, Texture.EMPTY]);
             sprite.animationSpeed = 0.5;
             sprite.loop = true;
         });
@@ -758,11 +758,11 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.update()', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
 
         beforeEach(() =>
         {
-            sprite = new SuperAnimatedSprite([Texture.EMPTY, Texture.WHITE, Texture.EMPTY]);
+            sprite = new AnimatedSprite([Texture.EMPTY, Texture.WHITE, Texture.EMPTY]);
             sprite.animationSpeed = 0.5;
             sprite.loop = true;
         });
@@ -953,13 +953,13 @@ describe('SuperAnimatedSprite', () =>
 
     describe('.update() with durations', () =>
     {
-        let sprite: SuperAnimatedSprite | null;
+        let sprite: AnimatedSprite | null;
         // default target deltaMS
         const ticker = { deltaMS: 16.66 } as Ticker;
 
         beforeEach(() =>
         {
-            sprite = new SuperAnimatedSprite([
+            sprite = new AnimatedSprite([
                 Texture.EMPTY,
                 Texture.WHITE,
                 Texture.EMPTY,

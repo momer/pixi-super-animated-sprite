@@ -3,10 +3,14 @@
         "target": "es2020",
         "lib": ["ESNext", "DOM", "WebWorker"],
         "module": "ESNext",
-        "allowJs": false,
+        "allowJs": true,
         "removeComments": false,
         "strict": true,
         "noImplicitAny": true,
+        "emitDeclarationOnly": true,
+        "declaration": true,
+        "declarationMap": true,
+        "outDir": "dist",
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "noImplicitReturns": true,
@@ -19,6 +23,9 @@
         "skipLibCheck": true,
         "types": ["node", "jest"]
     },
+    "include": [
+        "src/**/*",
+    ],
     "exclude": [
         "node_modules",
         "**/dist/**",
@@ -28,7 +35,9 @@
     "ts-node": {
         "files": true,
         "compilerOptions": {
+            "outDir": "dist",
             "esModuleInterop": true,
+            "declaration": true,
             "module": "commonjs"
         }
     }

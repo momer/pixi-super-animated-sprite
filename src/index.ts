@@ -1,1 +1,1 @@
-export { SuperAnimatedSprite, FrameObject } from './SuperAnimatedSprite';
+export { AnimatedSprite, FrameObject } from './AnimatedSprite';

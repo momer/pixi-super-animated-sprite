@@ -1,8 +1,8 @@
-import { Texture,  UPDATE_PRIORITY, Ticker, warn, Sprite, SpriteOptions } from 'pixi.js';
+import { Texture, UPDATE_PRIORITY, Ticker, warn, Sprite, SpriteOptions, TextureSource } from 'pixi.js';
 import { quickRound } from './utils/math/floats';
 
 
-export type AnimatedSpriteFrames = Texture[] | FrameObject[];
+export type AnimatedSpriteFrames = Texture<TextureSource<any>>[] | FrameObject[];
 
 /**
  * Constructor options used for `AnimatedSprite` instances.
@@ -49,7 +49,7 @@ export interface AnimatedSpriteOptions extends SpriteOptions
  * animatedSprite = new AnimatedSprite(sheet.animations['image_sequence']);
  * @memberof scene
  */
-export class SuperAnimatedSprite extends Sprite
+export class AnimatedSprite extends Sprite
 {
     /**
      * The speed that the AnimatedSprite will play at. Higher is faster, lower is slower.
@@ -252,7 +252,7 @@ export class SuperAnimatedSprite extends Sprite
      * @param frames - The array of frames ids the AnimatedSprite will use as its texture frames.
      * @returns - The new animated sprite with the specified frames.
      */
-    public static fromFrames(frames: string[]): SuperAnimatedSprite
+    public static fromFrames(frames: string[]): AnimatedSprite
     {
         const textures = [];
 
@@ -261,7 +261,7 @@ export class SuperAnimatedSprite extends Sprite
             textures.push(Texture.from(frames[i]));
         }
 
-        return new SuperAnimatedSprite(textures);
+        return new AnimatedSprite(textures);
     }
 
     /**
@@ -269,7 +269,7 @@ export class SuperAnimatedSprite extends Sprite
      * @param images - The array of image urls the AnimatedSprite will use as its texture frames.
      * @returns The new animate sprite with the specified images as frames.
      */
-    public static fromImages(images: string[]): SuperAnimatedSprite
+    public static fromImages(images: string[]): AnimatedSprite
     {
         const textures = [];
 
@@ -278,7 +278,7 @@ export class SuperAnimatedSprite extends Sprite
             textures.push(Texture.from(images[i]));
         }
 
-        return new SuperAnimatedSprite(textures);
+        return new AnimatedSprite(textures);
     }
 
     /** Stops the AnimatedSprite. */
