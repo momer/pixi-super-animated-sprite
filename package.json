@@ -1,0 +1,56 @@
+{
+  "name": "pixi-super-animated-sprite",
+  "version": "0.0.1-dev1",
+  "description": "A drop-in replacement for PixiJS's AnimatedSprite with enhanced animation loop handling for precise and accurate playback.",
+  "main": "index.ts",
+  "scripts": {
+    "prepare": "husky install",
+    "test": "test"
+  },
+  "lint-staged": {
+    "!(src/**/index).{ts,js,mjs}": "npm run lint:fix --"
+  },
+  "engines": {
+    "node": ">=16",
+    "yarn": "please-use-npm",
+    "npm": ">=8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/momer/pixi-super-animated-sprite.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist",
+    "lib"
+  ],
+  "keywords": [
+    "pixi",
+    "pixijs",
+    "animatedsprite",
+    "animation",
+    "rendering",
+    "spritesheet",
+    "2d"
+  ],
+  "author": "Mo Omer @momer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/momer/pixi-super-animated-sprite/issues"
+  },
+  "homepage": "https://github.com/momer/pixi-super-animated-sprite#readme",
+  "pre-commit": [
+    "lint",
+    "types"
+  ],
+  "devDependencies": {
+    "pixi.js": "^8.0.0",
+    "@pixi/extension-scripts": "^2.4.1",
+    "husky": "^9.1.7"
+  },
+  "peerDependencies": {
+    "pixi.js": "^8.0.0"
+  }
+}
