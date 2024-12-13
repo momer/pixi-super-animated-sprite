@@ -2,13 +2,14 @@
   "name": "@momer/pixi-super-animated-sprite",
   "version": "0.0.1-dev1",
   "description": "A drop-in replacement for PixiJS's AnimatedSprite with enhanced animation loop handling for precise and accurate playback.",
-  "main": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/animatedSprite.js",
+  "module": "lib/animatedSprite.es.js",
+  "typings": "lib/index.d.ts",
   "scripts": {
     "prepare": "husky install",
-    "build": "find ./dist -print0 | xargs -0 rm -rf && npm run build:types && npm run build:compile",
-    "build:types": "tsc -d --declarationDir dist --declarationMap --emitDeclarationOnly",
+    "build:types": "tsc --noEmit false --declaration --emitDeclarationOnly --declarationDir lib",
     "build:compile": "rollup --config rollup.config.js --bundleConfigAsCjs",
+    "build": "find ./lib/* -not -path './lib/.keep' -print0 | xargs -0 rm -rf && find ./dist/* -not -path './dist/.keep' -print0 | xargs -0 rm -rf && npm run build:types && npm run build:compile",
     "test": "npx jest --silent"
   },
   "lint-staged": {
@@ -27,8 +28,13 @@
     "access": "public"
   },
   "files": [
-    "dist",
-    "lib"
+    "dist/",
+    "lib/",
+    "LICENSE",
+    "NOTICE",
+    "package.json",
+    "README.md",
+    "index.d.ts"
   ],
   "keywords": [
     "pixi",
@@ -70,8 +76,13 @@
     "jest-extended": "^1.2.1",
     "jest-raw-loader": "^1.0.1",
     "pixi.js": "^8.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-dts": "^6.1.1",
+    "rollup-plugin-jscc": "^2.0.0",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-sourcemaps": "^0.6.3",
     "rollup-plugin-typescript2": "^0.36.0",
+    "terser": "^5.37.0",
     "ts-jest": "^26.0.0",
     "ts-node": "^9.0.0",
     "tslib": "^2.8.1",

@@ -1,42 +1,65 @@
-import typescript from '@rollup/plugin-typescript';
-import { defineConfig } from 'rollup';
-import { dts } from "rollup-plugin-dts";
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
+import path from 'path';
+import sourcemaps from 'rollup-plugin-sourcemaps';
+import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
+import typescript from 'rollup-plugin-typescript2';
+import jscc from 'rollup-plugin-jscc';
 
-const rollupConfig = defineConfig([
-    {
-        input: 'src/index.ts',
+async function main()
+{
+    const plugins = [
+        sourcemaps(),
+        typescript(),
+        resolve({
+            browser: true,
+            preferBuiltins: false,
+        }),
+        commonjs({ extensions: ['.js', '.ts'] }),
+    ];
+
+    const compiled = (new Date()).toUTCString().replace(/GMT/g, 'UTC');
+    const sourcemap = true;
+    const results = [];
+
+    const pkg = require('./package.json');
+    const banner = [
+        `/*!`,
+        ` * ${pkg.name} - v${pkg.version}`,
+        ` * Compiled ${compiled}`,
+        ` *`,
+        ` * ${pkg.name} is licensed under the MIT License.`,
+        ` * http://www.opensource.org/licenses/mit-license`,
+        ` */`,
+    ].join('\n');
+
+    // Check for bundle folder
+    const basePath = __dirname;
+    const input = path.join(basePath, 'src/index.ts');
+    const freeze = false;
+
+    results.push({
+        input,
         output: [
             {
-                dir: 'dist',
+                banner,
+                file: path.join(basePath, pkg.main),
                 format: 'cjs',
-                entryFileNames: 'index.cjs.js',
-                sourcemap: true
+                freeze,
+                sourcemap,
             },
             {
-                dir: 'dist',
-                format: 'esm',
-                entryFileNames: 'index.esm.js',
-                sourcemap: true
-            }
+                banner,
+                file: path.join(basePath, pkg.module),
+                format: 'es',
+                freeze,
+                sourcemap,
+            },
         ],
-        plugins: [
-            nodeResolve({modulesOnly: true}),
-            commonjs(),
-            typescript({
-                tsconfig: './tsconfig.json',
-                declaration: true,
-                declarationDir: 'dist',
-            })
-        ]
-    },
-    {
-        input: "./dist/index.d.ts",
-        output: [{file: "dist/index.d.ts", format: "es"}],
-        plugins: [dts()],
-    }
-]);
+        external: ['pixi.js'],
+        plugins: [jscc({ values: { _IIFE: false } })].concat(plugins)
+    });
 
-export default rollupConfig;
+    return results;
+}
 
+export default main();
