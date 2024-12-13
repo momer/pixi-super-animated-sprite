@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "prepare": "husky install",
-    "build": "rm -r ./dist && npm run build:types && npm run build:compile",
+    "build": "find ./dist -print0 | xargs -0 rm -rf && npm run build:types && npm run build:compile",
     "build:types": "tsc -d --declarationDir dist --declarationMap --emitDeclarationOnly",
     "build:compile": "rollup --config rollup.config.js --bundleConfigAsCjs",
     "test": "npx jest --silent"
